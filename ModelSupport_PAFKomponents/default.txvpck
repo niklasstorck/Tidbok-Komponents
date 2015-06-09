@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nodeSet version="1.0">
+  <view uin="omf0a0h4p1rtmq0em_v">
+    <property name="$defaultDiagram" value="true" />
+    <property name="$metaclass" value="Package Diagram" />
+    <property name="$name" value="default" />
+    <reference referencedUin="design:view:::s0frbco8hrr0esc4m_v">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="10,10,122,211" />
+      <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.@unitclass" />
+      <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMyPAFItems" />
+      <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMyPafEditor" />
+      <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMYPAFWaitList" />
+      <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMyPAFItem" />
+      <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMyPAFPlanner" />
+    </reference>
+  </view>
+</nodeSet>

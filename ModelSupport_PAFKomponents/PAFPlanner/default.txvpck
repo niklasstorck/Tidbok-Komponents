@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nodeSet version="1.0">
+  <view uin="s0frbco8hrr0esc4m_v">
+    <property name="$defaultDiagram" value="true" />
+    <property name="$metaclass" value="Package Diagram" />
+    <property name="$name" value="default" />
+    <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMyPAFPlanner">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="10,10,167,98" />
+      <reference referencedUin="delphi:e_method:src:PAFKomponents:PAFPlanner.TMyPAFPlanner.CreateItems()" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFPlanner.Field1" />
+      <reference referencedUin="delphi:l_ast:src:PAFKomponents:PAFPlanner.TMyPAFPlanner.Field1">
+        <property name="sourceAnchor" value="108,140" />
+        <property name="targetAnchor" value="108,200" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFPlanner.Field2" />
+      <reference referencedUin="delphi:l_ast:src:PAFKomponents:PAFPlanner.TMyPAFPlanner.Field2">
+        <property name="sourceAnchor" value="177,89" />
+        <property name="targetAnchor" value="300,89" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMYPAFWaitList">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="300,40,163,98" />
+      <property name="location_set_by_user" value="True" />
+      <reference referencedUin="delphi:e_method:src:PAFKomponents:PAFPlanner.TMYPAFWaitList.CreatePlanner()" />
+    </reference>
+    <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMyPAFItem">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="40,200,138,758" />
+      <property name="hideAttribute" value="True" />
+      <property name="hideOperation" value="True" />
+      <property name="hideProperty" value="False" />
+      <property name="location_set_by_user" value="True" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FBestDatum" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FStartTime" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FEndTime" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FUsRum" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FLevtId" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FTdbTyp1" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FTdbTyp2" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FTdbTyp3" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FTdbTyp4" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FTdbTyp5" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.Fpid" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FBid" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FRid" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FRemSign" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FRemUsr" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FTdbUsr" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FUndLak" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FNotes" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FProdkod" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FBestId" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FLevttxt" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FBestLak" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FBestTxt" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FProdtext" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FEfterNamn" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FFornamn" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FCAdress" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FBAdress" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FPAdress" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FHTele" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FATele" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FPrioritet" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FKBrevFlg" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FRBrevFlg" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FProdFlg" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FSpecFlg" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FTaxtFlg" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FBlockFlg" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FAlNr" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FAl1Nr" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FAkut" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FAnnanAvdelning" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FAlladata" />
+      <reference referencedUin="delphi:e_method:src:PAFKomponents:PAFPlanner.TMyPAFItem.Assign(Classes.TPersistent)" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.BestDatum" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.StartTime" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.EndTime" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.UsRum" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.LevtId" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.TdbTyp1" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.TdbTyp2" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.TdbTyp3" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.TdbTyp4" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.TdbTyp5" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.pid" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Bid" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Rid" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.RemSign" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.RemUsr" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.TdbUsr" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.UndLak" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Notes" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Prodkod" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.BestId" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Levttxt" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.BestLak" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.BestTxt" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Prodtext" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.EfterNamn" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Fornamn" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.CAdress" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.BAdress" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.PAdress" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.HTele" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.ATele" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Prioritet" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.KBrevFlg" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.RBrevFlg" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.ProdFlg" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.SpecFlg" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.TaxtFlg" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.BlockFlg" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.AlNr" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Al1Nr" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Akut" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.AnnanAvd" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Alladata" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.Field1" />
+      <reference referencedUin="delphi:l_ast:src:PAFKomponents:PAFPlanner.TMyPAFItem.Field1">
+        <property name="sourceAnchor" value="178,510" />
+        <property name="targetAnchor" value="688,118" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FFrageText" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FAnamnes" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FPatNamn" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FUtid" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPAFItem.FAnnanAvd" />
+      <reference referencedUin="delphi:e_method:src:PAFKomponents:PAFPlanner.TMyPAFItem.Clear()" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.FrageText" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Anamnes" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.PatNamn" />
+      <reference referencedUin="delphi:e_property:src:PAFKomponents:PAFPlanner.TMyPAFItem.Utid" />
+    </reference>
+    <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMyPAFItems">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="640,20,222,98" />
+      <property name="location_set_by_user" value="True" />
+      <reference referencedUin="delphi:e_method:src:PAFKomponents:PAFPlanner.TMyPAFItems.GetItemClass()" />
+    </reference>
+    <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.@unitclass">
+      <property name="$shortcutReference" value="true" />
+      <reference referencedUin="delphi:e_method:src:PAFKomponents:PAFPlanner.@unitclass.Register()" />
+    </reference>
+    <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.TMyPafEditor">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="400,620,142,145" />
+      <property name="hideOperation" value="False" />
+      <property name="location_set_by_user" value="True" />
+      <reference referencedUin="delphi:e_method:src:PAFKomponents:PAFPlanner.TMyPafEditor.CreateEditor(Classes.TComponent)" />
+      <reference referencedUin="delphi:e_method:src:PAFKomponents:PAFPlanner.TMyPafEditor.PlannerItemToEdit(Planner.TPlannerItem)" />
+      <reference referencedUin="delphi:e_method:src:PAFKomponents:PAFPlanner.TMyPafEditor.EditToPlannerItem(Planner.TPlannerItem)" />
+      <reference referencedUin="delphi:e_field:src:PAFKomponents:PAFPlanner.TMyPafEditor.LocalItem" />
+      <reference referencedUin="delphi:l_ast:src:PAFKomponents:PAFPlanner.TMyPafEditor.LocalItem">
+        <property name="sourceAnchor" value="400,692" />
+        <property name="targetAnchor" value="178,692" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="delphi:e_class:src:PAFKomponents:PAFPlanner.Struct1">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="196,1,86,81" />
+    </reference>
+  </view>
+</nodeSet>

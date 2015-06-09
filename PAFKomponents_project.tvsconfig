@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<TgConfig Version="3" SubLevelDisabled="False">
+  <Option Name="namespaceFolder.PAFPlanner" Type="System.String" Value="PAFPlanner" Category="General" IsBrowsable="False" />
+  <Option Name="SourceCode.AutoDependency" Type="System.Boolean" Value="True" Category="Source Code" />
+</TgConfig>

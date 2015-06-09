@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.328,F:\Fyslab\Programvara\PAF tidbok\Komponents\PAFEdit2.pas=F:\Fyslab\Programvara\PAF tidbok\Komponents\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.929,F:\Fyslab\Programvara\PAF tidbok\Komponents\PAFEdit2.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.810,F:\Mina dokument\Niklas\RAD Studio\Projects\Editor.dproj=F:\Mina dokument\Niklas\RAD Studio\Projects\Package1.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.703,=vcl.dcp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.360,=F:\Fyslab\Programvara\PAF tidbok\PAfeditor\Pafedit.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.783,=F:\Fyslab\Programvara\PAF tidbok\Komponents\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.113,F:\Fyslab\Programvara\PAF tidbok\PAfeditor\Editor.dproj=F:\Mina dokument\Niklas\RAD Studio\Projects\Editor.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.718,=tmsdxe2.dcp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.732,=PAFKomponents.dcp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.412,=rtl.dcp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.652,F:\Fyslab\Programvara\PAF tidbok\Komponents\Pafedit.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.859,=F:\Fyslab\Programvara\PAF tidbok\Komponents\Pafedit.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.925,F:\Fyslab\Programvara\PAF tidbok\Komponents\Pafedit.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.475,=F:\Fyslab\Programvara\PAF tidbok\Komponents\Pafedit.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="-1" SortType="1"/>
+</BorlandProject>

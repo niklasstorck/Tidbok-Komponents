@@ -1,0 +1,40 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<Import Condition="Exists('$(BDS)\bin\CodeGear.Deployment.targets')" Project="$(BDS)\bin\CodeGear.Deployment.targets"/>
+		<ProjectExtensions>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+		<ItemGroup Condition="'$(Platform)'=='Win64'">
+			<DeployFile Include="$(BDS)\bin64\dbxmss.dll">
+				<RemoteDir>PAFKomponents\</RemoteDir>
+				<RemoteName>dbxmss.dll</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+		</ItemGroup>
+		<ItemGroup Condition="'$(Platform)'=='OSX32'"/>
+		<ItemGroup Condition="'$(Platform)'=='Win32'">
+			<DeployFile Condition="'$(Config)'=='Debug'" Include="C:\Users\Public\Documents\RAD Studio\9.0\Bpl\PAFKomponents.bpl">
+				<RemoteDir>PAFKomponents\</RemoteDir>
+				<RemoteName>PAFKomponents.bpl</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+				<Required>True</Required>
+			</DeployFile>
+			<DeployFile Condition="'$(Config)'=='Debug'" Include="C:\Users\Public\Documents\RAD Studio\9.0\Bpl\PAFKomponents.rsm">
+				<RemoteDir>PAFKomponents\</RemoteDir>
+				<RemoteName>PAFKomponents.rsm</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+			<DeployFile Include="$(BDS)\bin\dbxmss.dll">
+				<RemoteDir>PAFKomponents\</RemoteDir>
+				<RemoteName>dbxmss.dll</RemoteName>
+				<Operation>0</Operation>
+				<LocalCommand/>
+				<RemoteCommand/>
+			</DeployFile>
+		</ItemGroup>
+	</Project>

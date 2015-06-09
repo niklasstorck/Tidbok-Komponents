@@ -1,0 +1,433 @@
+unit PAFPlanner;
+{ $M+}
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Planner, PlannerWaitlist, DateUtils;
+
+type
+  ShortString = String[15];
+  LongString = String[50];
+  XLongString = UnicodeString;
+
+
+  TMyPAFItem = class(TPlannerItem)
+  protected
+
+  public
+    procedure Assign(Source: TPersistent); override;
+    procedure CopyRemissdataOnly(Source: Tpersistent);
+    procedure Clear;
+    destructor Destroy; override;
+  protected
+
+    FRDatum,
+    FPafStartTime, FPafEndTime,
+    FPafBestDatum: TDateTime;
+
+
+    FUsRum, FLevtId, FTdbTyp1, // Rum
+    FTdbTyp2, // Läkarsign
+    FTdbTyp3, // besökstyp a=Akut etc.
+    FTdbTyp4, // Använd ej?
+    FTdbTyp5, // Kommentar
+    Fpid, FBid, FRid, FRemSign, FRemUsr, FTdbUsr, FUndLak, FNotes, FProdkod,
+    FBestId: ShortString;
+
+    FFrageText, FAnamnes: XLongString;
+    FLevttxt, FBestLak, FBestTxt, FProdtext, FPatNamn, FCAdress, FBAdress,
+    FPAdress, FHTele, FATele, FBesKomm, FPatKomm,
+    FOrdination: LongString;
+
+    FstatusFlg,  // 0=Ej bok. 1=Bok. 2=Anlänt 3=Påg. 4=Avsl. 5=Prel.
+    FUtid, // Undersökningens tidsåtgång
+    FPrioritet, FKBrevFlg, FRBrevFlg, FSpecFlg, FTaxtFlg, FBlockFlg,
+    FALNr, FALlNr, FMallFlg, FTextFlg: Integer;
+
+    FAkut, FAnnanAvd, FAlladata: Boolean;
+  published
+    property RDatum: TdateTime         read FRDatum          write FRDatum;
+    property PafBestDatum: TDateTime   read FPafBestDatum    write FPafBestDatum;
+    property PafStartTime: TDateTime   read FPafStartTime    write FPafStartTime;
+    property PafEndTime:   TDateTime   read FPafEndTime      write FPafEndTime;
+
+    property UsRum: ShortString        read FUsRum           write FUsRum;
+    property LevtId: ShortString       read FLevtId          write FLevtId;
+
+    property TdbTyp1: ShortString      read FTdbTyp1         write FTdbTyp1; // Rum
+    property TdbTyp2: ShortString      read FTdbTyp2         write FTdbTyp2; // Läkarsign
+    property TdbTyp3: ShortString      read FTdbTyp3         write FTdbTyp3;
+    // Besökstyp ' a=Akut etc.
+    property TdbTyp4: ShortString      read FTdbTyp4         write FTdbTyp4; // Använd ej?
+    property TdbTyp5: ShortString      read FTdbTyp5         write FTdbTyp5; // Kommentar
+
+    property pid: ShortString          read Fpid             write Fpid;
+    property Bid: ShortString          read FBid             write FBid;
+    property Rid: ShortString          read FRid             write FRid;
+    property RemSign: ShortString      read FRemSign         write FRemSign;
+    property RemUsr: ShortString       read FRemUsr          write FRemUsr;
+    property TdbUsr: ShortString       read FTdbUsr          write FTdbUsr;
+    property UndLak: ShortString read FUndLak write FUndLak;
+    property Notes: ShortString read FNotes write FNotes;
+    property Prodkod: ShortString read FProdkod write FProdkod;
+    property BestId: ShortString read FBestId write FBestId;
+
+    property FrageText: string read FFrageText write FFrageText;
+    property Anamnes: String read FAnamnes write FAnamnes;
+    property Levttxt: LongString read FLevttxt write FLevttxt;
+    property BestLak: LongString read FBestLak write FBestLak;
+    property BestTxt: LongString read FBestTxt write FBestTxt;
+    property Prodtext: LongString read FProdtext write FProdtext;
+    property BesKomm: LongString read FBesKomm write FBesKomm;
+    property PatKomm: LongString read FPatKomm write FPatKomm;
+    // property EfterNamn: longString  read  FEfterNamn  write FEfterNamn;
+    property PatNamn: LongString read FPatNamn write FPatNamn;
+    property CAdress: LongString read FCAdress write FCAdress;
+    property BAdress: LongString read FBAdress write FBAdress;
+    property PAdress: LongString read FPAdress write FPAdress;
+    property HTele: LongString read FHTele write FHTele;
+    property ATele: LongString read FATele write FATele;
+
+    property Utid: Integer read FUtid write FUtid;
+    property Prioritet: Integer read FPrioritet write FPrioritet;
+    property KBrevFlg: Integer read FKBrevFlg write FKBrevFlg;
+    property RBrevFlg: Integer read FRBrevFlg write FRBrevFlg;
+    property StatusFlg: Integer read FStatusFlg write FStatusFlg;
+    property SpecFlg: Integer read FSpecFlg write FSpecFlg;
+    property TaxtFlg: Integer read FTaxtFlg write FTaxtFlg;
+    property BlockFlg: Integer read FBlockFlg write FBlockFlg;
+    property ALNr: Integer read FALNr write FALNr;
+    property ALlNr: Integer read FALlNr write FALlNr;
+    property MallFlg: Integer read FMallFlg write FMallFlg;
+    property TextFlg: Integer read FTextFlg write FTextFlg;
+
+    property Akut: Boolean read FAkut write FAkut;
+    property AnnanAvd: Boolean read FAnnanAvd write FAnnanAvd;
+    property Alladata: Boolean read FAlladata write FAlladata;
+    property Ordination: Longstring read FOrdination write FOrdination;
+  end;
+
+  TMyPAFItems = class(TPlannerItems)
+  public
+    function GetItemClass: TCollectionItemClass; override;
+  end;
+
+  TMyPAFPlanner = class(TPlanner)
+  private
+  protected { Protected declarations }
+    function CreateItems: TPlannerItems; override;
+  public
+    function PafCellToDateTime(NoColPerDay,PafPos,PafBegin :Integer): TDateTime;
+    function ColToHeader(P: Integer): String;
+    function ColToDate(StartTid: TdateTime; NoColsPerDay, Column: Integer): TDateTime;
+    function TimeToItemPlace(DT: TDatetime):Integer;
+    function HeaderAndDateToCol(StartTid, FirstDay: TDateTime;
+             NoColsPerDay: Integer; ColHeader: String): Integer;
+  published
+  end;
+
+  // This is the waitlist that should be connected to TPAFPlanner
+  TMYPAFWaitList = class(TPlannerWaitList)
+  protected
+    function CreatePlanner: TPlanner; override;
+  end;
+
+  {
+    Struct1 = record
+    end;
+  }
+procedure Register;
+
+
+implementation
+
+// TMyPlannerItems
+function TMyPAFItems.GetItemClass: TCollectionItemClass;
+begin
+  Result := TMyPAFItem;
+end;
+
+// TMyPlanner
+function TMyPAFPlanner.CreateItems: TPlannerItems;
+begin
+  Result := TMyPAFItems.Create(Self);
+end;
+
+// TMyPlannerItem
+procedure TMyPAFItem.Assign(Source: TPersistent);
+begin
+  inherited Assign(Source);
+  if Assigned(Source) then
+  begin
+    FRDatum       := TMyPAFItem(Source).FRDatum;
+    FPafStartTime := TMyPAFItem(Source).FPafStartTime;
+    FPafEndTime := TMyPAFItem(Source).FPafEndTime;
+    FPafBestDatum := TMyPAFItem(Source).FPafBestDatum;
+    FUsRum := TMyPAFItem(Source).FUsRum;
+    FLevtId := TMyPAFItem(Source).FLevtId;
+    FBesKomm:= TMyPAFItem(Source).BesKomm;
+
+    FTdbTyp1 := TMyPAFItem(Source).FTdbTyp1; // Rum
+    FTdbTyp2 := TMyPAFItem(Source).FTdbTyp2; // Läkarsign
+    FTdbTyp3 := TMyPAFItem(Source).FTdbTyp3; // besökstyp a=Akut etc.
+    FTdbTyp4 := TMyPAFItem(Source).FTdbTyp4; // Använd ej?
+    FTdbTyp5 := TMyPAFItem(Source).FTdbTyp5; // Kommentar
+    Fpid := TMyPAFItem(Source).Fpid;
+    FBid := TMyPAFItem(Source).FBid;
+    FRid := TMyPAFItem(Source).FRid;
+    FRemSign := TMyPAFItem(Source).FRemSign;
+    FRemUsr := TMyPAFItem(Source).RemUsr;
+    FTdbUsr := TMyPAFItem(Source).FTdbUsr;
+    FUndLak := TMyPAFItem(Source).FUndLak;
+    FNotes := TMyPAFItem(Source).FNotes;
+    FProdkod := TMyPAFItem(Source).FProdkod;
+    FBestId := TMyPAFItem(Source).FBestId;
+
+    FFrageText := TMyPAFItem(Source).FFrageText;
+    FAnamnes := TMyPAFItem(Source).FAnamnes;
+    FLevttxt := TMyPAFItem(Source).FLevttxt;
+    FBestLak := TMyPAFItem(Source).FBestLak;
+    FBestTxt := TMyPAFItem(Source).FBestTxt;
+    FProdtext := TMyPAFItem(Source).FProdtext;
+    FPatNamn := TMyPAFItem(Source).FPatNamn;
+    FCAdress := TMyPAFItem(Source).FCAdress;
+    FBAdress := TMyPAFItem(Source).FBAdress;
+    FPAdress := TMyPAFItem(Source).FPAdress;
+    FHTele := TMyPAFItem(Source).FHTele;
+    FATele := TMyPAFItem(Source).FATele;
+
+    FUtid := TMyPAFItem(Source).FUtid; // Undersökningens tidsåtgång
+    FPrioritet := TMyPAFItem(Source).FPrioritet;
+    FKBrevFlg := TMyPAFItem(Source).FKBrevFlg;
+    FRBrevFlg := TMyPAFItem(Source).FRBrevFlg;
+    FStatusFlg := TMyPAFItem(Source).FStatusFlg;
+    FSpecFlg := TMyPAFItem(Source).FSpecFlg;
+    FTaxtFlg := TMyPAFItem(Source).FTaxtFlg;
+    FBlockFlg := TMyPAFItem(Source).FBlockFlg;
+    FALNr := TMyPAFItem(Source).FAlNr;
+    FALlNr := TMyPAFItem(Source).FAllNr;
+    FMallFlg := TMyPAFItem(Source).FMallFlg;
+    FTextFlg := TMyPAFItem(Source).FTextFlg;
+    FAkut := TMyPAFItem(Source).FAkut;
+    FAnnanAvd := TMyPAFItem(Source).FAnnanAvd;
+    FAlladata := TMyPAFItem(Source).FAlladata;
+    FOrdination:= TMyPAFItem(Source).FOrdination;
+  end;
+end;
+
+// TPAFWaitList
+
+function TMYPAFWaitList.CreatePlanner: TPlanner;
+begin
+  inherited;
+  Result := TMyPAFPlanner.Create(Self);
+end;
+
+procedure Register;
+begin
+  RegisterComponents('PAF-TMS', [TMyPAFPlanner]);
+  RegisterComponents('PAF-TMS', [TMYPAFWaitList]);
+end;
+
+procedure TMyPAFItem.Clear;
+begin
+  //PAFData.Clear;
+  FRDatum       := FloatToDateTime(1);
+  FPafBestDatum := FloatToDateTime(1);
+  FPafstartTime := FloatToDateTime(1);
+  FPafEndtime   := FloatToDateTime(1);
+  FUsRum := '';
+  FLevtId := '';
+  FTdbTyp1 := '';
+  FTdbTyp2 := '';
+  FTdbTyp3 := '';
+  FTdbTyp4 := '';
+  FTdbTyp5 := '';
+  Fpid := '';
+  FBid := '';
+  FRid := '';
+  FRemSign := '';
+  FRemUsr := '';
+  FTdbUsr := '';
+  FUndLak := '';
+  FNotes := '';
+  FProdkod := '';
+  FBestId := '';
+
+  FFrageText := '';
+  FAnamnes := '';
+  FLevttxt := '';
+  FBestLak := '';
+  FBestTxt := '';
+  FProdtext := '';
+  FPatNamn := '';
+  FCAdress := '';
+  FBAdress := '';
+  FPAdress := '';
+  FHTele := '';
+  FATele := '';
+
+  FPrioritet := 0;
+  FKBrevFlg := 0;
+  FRBrevFlg := 0;
+  FStatusFlg := 0;
+  FSpecFlg := 0;
+  FTaxtFlg := 0;
+  FBlockFlg := 0;
+  FALNr := 0;
+  FALlNr := 0;
+  FMallFlg:=0;
+
+  FAkut := False;
+  FAnnanAvd := False;
+  FAlladata := False;
+  FOrdination:='';
+
+end;
+
+// *************************************************************
+// TMyPAFItem.CopyRemissdataOnly(Source: Tpersistent);
+// Source = TMYPafItem;
+// (Man kunde ha skickat TPAFItem lika gärna men jag håller mig
+// till den mer generella tekniken som TMS använt.
+// Förmodligen i onödan.)
+// Avsedd att kopiera patientdata men inte tid etc.
+// Gjord för att kopiera in lämpliga data när man släpper en
+// undersökning på en färdig tid i tidboken.
+// Niklas 2013-04-05
+// *************************************************************
+procedure TMyPAFItem.CopyRemissdataOnly(Source: Tpersistent);
+begin
+
+    FRDatum        := TMyPAFItem(Source).RDatum;
+    //FPafStartTime := TMyPAFItem(Source).FPafStartTime;
+    //FPafEndTime := TMyPAFItem(Source).FPafEndTime;
+    //FPafBestDatum := TMyPAFItem(Source).FPafBestDatum;
+    //FUsRum := TMyPAFItem(Source).FUsRum;
+    FLevtId := TMyPAFItem(Source).FLevtId;
+    FBesKomm:= TMyPAFItem(Source).BesKomm;
+
+    FTdbTyp1 := TMyPAFItem(Source).FTdbTyp1; // Rum
+    FTdbTyp2 := TMyPAFItem(Source).FTdbTyp2; // Läkarsign
+    FTdbTyp3 := TMyPAFItem(Source).FTdbTyp3; // besökstyp a=Akut etc.
+    FTdbTyp4 := TMyPAFItem(Source).FTdbTyp4; // Använd ej?
+    FTdbTyp5 := TMyPAFItem(Source).FTdbTyp5; // Kommentar
+    Fpid := TMyPAFItem(Source).Fpid;
+    FBid := TMyPAFItem(Source).FBid;
+    FRid := TMyPAFItem(Source).FRid;
+    FRemSign := TMyPAFItem(Source).FRemSign;
+    FRemUsr := TMyPAFItem(Source).RemUsr;
+    FTdbUsr := TMyPAFItem(Source).FTdbUsr;
+    FUndLak := TMyPAFItem(Source).FUndLak;
+    FNotes := TMyPAFItem(Source).FNotes;
+    FProdkod := TMyPAFItem(Source).FProdkod;
+    FBestId := TMyPAFItem(Source).FBestId;
+
+    FFrageText := TMyPAFItem(Source).FFrageText;
+    FAnamnes := TMyPAFItem(Source).FAnamnes;
+    FLevttxt := TMyPAFItem(Source).FLevttxt;
+    FBestLak := TMyPAFItem(Source).FBestLak;
+    FBestTxt := TMyPAFItem(Source).FBestTxt;
+    FProdtext := TMyPAFItem(Source).FProdtext;
+    FPatNamn := TMyPAFItem(Source).FPatNamn;
+    FCAdress := TMyPAFItem(Source).FCAdress;
+    FBAdress := TMyPAFItem(Source).FBAdress;
+    FPAdress := TMyPAFItem(Source).FPAdress;
+    FHTele := TMyPAFItem(Source).FHTele;
+    FATele := TMyPAFItem(Source).FATele;
+
+    FUtid := TMyPAFItem(Source).FUtid; // Undersökningens tidsåtgång
+    FPrioritet := TMyPAFItem(Source).FPrioritet;
+    FKBrevFlg := TMyPAFItem(Source).FKBrevFlg;
+    FRBrevFlg := TMyPAFItem(Source).FRBrevFlg;
+    FStatusFlg := TMyPAFItem(Source).FStatusFlg;
+    FSpecFlg := TMyPAFItem(Source).FSpecFlg;
+    FTaxtFlg := TMyPAFItem(Source).FTaxtFlg;
+    FBlockFlg := TMyPAFItem(Source).FBlockFlg;
+    //FALNr := TMyPAFItem(Source).FAlNr;
+    //FALlNr := TMyPAFItem(Source).FAllNr;  // Ska väl inte över
+
+    FAkut := TMyPAFItem(Source).FAkut;
+    FAnnanAvd := TMyPAFItem(Source).FAnnanAvd;
+    FAlladata := TMyPAFItem(Source).FAlladata;
+end;
+
+
+destructor TMyPAFItem.Destroy;
+begin
+  inherited Destroy;
+end;
+
+
+
+
+
+function TMyPAFPlanner.PafCellToDateTime(NoColPerDay,PafPos,PafBegin :Integer): TDateTime;
+var Date: TDateTime;
+    h, m :Integer;
+begin
+  // Ger tillbaka datum och tid ersätter CellToTime
+  if (PafPos < 0) or (PafBegin < 0) then
+    //raise Exception.Create('Invalid cell coordinates')
+  else
+  begin
+    Date:= CellToTime(0,PAFBegin);
+    Result := Date + PafPos div NoColPerDay;
+  end;
+end;
+
+function TMyPAFPlanner.ColToDate(StartTid: TdateTime; NoColsPerDay,
+  Column: Integer): TDateTime;
+var S: String;
+begin
+   Result:= StartTid + (Column div NoColsPerDay)
+end;
+
+
+function TMyPAFPlanner.ColToHeader(P: Integer): String;
+begin
+    Result := Header.Captions.Strings[P+1]; // P+1 ?
+end;
+
+
+
+function TMyPAFPlanner.HeaderAndDateToCol(StartTid, FirstDay: TDateTime;
+  NoColsPerDay: Integer; ColHeader: String): Integer;
+var
+  S: String;
+  Column, Dag, TmpRes: Integer;
+begin
+  S := Trim(ColHeader);
+
+  // Hittar rätt column i första dagen på schemat
+  Column:= Header.Captions.IndexOf(S);
+  TmpRes := Column;
+
+  // Om det finns flera dagar så måste men flytta kolumnen till
+  // höger. lika långt som antalet dagar + aktuell kolumn.
+  Dag := Trunc(StartTid-FirstDay);
+  Column  := TmpRes + Dag * NoColsPerDay;
+
+  if TmpRes > 0 then
+    Result := Column - 1
+  else
+    Result := -1
+end;
+
+function TMyPAFPlanner.TimeToItemPlace(DT: TDatetime): Integer;
+var Y,M,D,
+    hour,
+    minute,
+    second,
+    ms : Word;
+    hI, mI : Integer;
+begin
+  DecodeDateTime(dt,Y,M,D,hour,minute,second,ms);
+  hI:=hour *(60 div Display.DisplayUnit) - Display.DisplayStart;
+  mI:= minute div Display.DisplayUnit;
+  Result := Trunc(hI+mI);
+end;
+
+
+end.

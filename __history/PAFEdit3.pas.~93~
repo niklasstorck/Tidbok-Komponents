@@ -1,0 +1,294 @@
+
+// *********************************************************************
+// PafEdit3 är en descendant av TCustomItemEditor
+// Anpassad för att editera TMyPafItem
+//
+// *********************************************************************
+
+
+{$I TMSDEFS.INC}
+
+unit PAFEdit3;
+
+interface
+
+uses
+  PafPlanner,
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, Planner, StdCtrls, ExtCtrls, ComCtrls, Buttons, CommCtrl,
+  PlanRecurrEdit, PlanUtil;
+
+type
+  TEditState = (esEdit, esNew);
+
+type
+  TBasePlannerItemEditForm = class(TForm)
+  private
+    FEditState: TEditState;
+  protected
+    procedure AssignFromPlannerItem(PlannerItem: TPlannerItem); virtual;
+    procedure AssignToPlannerItem(PlannerItem: TPlannerItem); virtual;
+    procedure CheckInputValues(PlannerItem: TPlannerItem); virtual;
+    procedure EditStateChanged; virtual;
+    procedure FixEnabledComponents; virtual;
+    procedure InternalEditModal(PlannerItem: TPlannerItem); virtual;
+    procedure ProcessWarnings; virtual;
+    procedure SetEditState(const Value: TEditState); virtual;
+  public
+    procedure EditModal(PlannerItem: TPlannerItem); virtual;
+    property EditState: TEditState read FEditState write SetEditState;
+  end;
+
+  TDefaultPlannerItemEditForm = class(TBasePlannerItemEditForm)
+    EditNamn: TEdit;
+    ButtonBottomPanel: TPanel;
+    ButtonBottomRightPanel: TPanel;
+    OKBtn: TButton;
+    CancBtn: TButton;
+    EditKommentar: TEdit;
+    EditPnr: TEdit;
+    EditFraga: TEdit;
+    MemoAnamnes: TMemo;
+
+    procedure FixEnabledComponents; override;
+    procedure FormCreate(Sender: TObject);
+
+  private
+    FImageList: TImageList;
+  protected
+  protected
+
+    //property StartTime: TTime read GetStartTime write SetStartTime;
+    //property EndTime: TTime read GetEndTime write SetEndTime;
+
+  protected
+    procedure AssignFromPlannerItem(PlannerItem: TPlannerItem); override;
+    procedure AssignToPlannerItem(PlannerItem: TPlannerItem); override;
+    procedure EditStateChanged; override;
+    //procedure FixEnabledComponents; override;
+    //procedure ImageChanged; virtual;
+    procedure ProcessWarnings; override;
+  public
+    recurrency:string;
+  end;
+
+  TPafItemEditor = class(TCustomItemEditor)
+  private
+    FEditForm: TDefaultPlannerItemEditForm;
+    FCenter: Boolean;
+    FFormLeft: Integer;
+    FFormTop: Integer;
+
+  public
+    constructor Create(AOwner: TComponent); override;
+    procedure CreateEditor(AOwner: TComponent); override;
+    procedure DestroyEditor; override;
+    destructor Destroy; override;
+    function Execute: Integer; override;
+    procedure PlannerItemToEdit(APlannerItem: TPlannerItem); override;
+    procedure EditToPlannerItem(APlannerItem: TPlannerItem); override;
+  published
+    property CenterOnScreen: Boolean read FCenter write FCenter default True;
+    property FormLeft: Integer read FFormLeft write FFormLeft;
+    property FormTop: Integer read FFormTop write FFormTop;
+
+  end;
+
+
+const
+  OneDay = 1;
+  OneHour = OneDay / 24;
+  OneMinute = OneHour / 60;
+  OneSecond = OneMinute / 60;
+  MinDuration = 15 * OneMinute;
+
+  //var PAFPlannerItemEditForm: TPAFPlannerItemEditForm;
+
+procedure register;
+
+implementation
+
+
+{$R *.dfm}
+
+procedure Register;
+begin
+  RegisterComponents('PAF-TMS', [TPAFItemEditor]);
+end;
+
+
+{ TBasePlannerItemEditForm }
+
+procedure TBasePlannerItemEditForm.AssignFromPlannerItem(
+  PlannerItem: TPlannerItem);
+begin
+  //placeholder for descendants
+end;
+
+procedure TBasePlannerItemEditForm.AssignToPlannerItem(
+  PlannerItem: TPlannerItem);
+begin
+  //placeholder for descendants
+end;
+
+procedure TBasePlannerItemEditForm.CheckInputValues(PlannerItem: TPlannerItem);
+begin
+  //placeholder for descendants
+end;
+
+procedure TBasePlannerItemEditForm.EditModal(PlannerItem: TPlannerItem);
+begin
+  Assert(Assigned(PlannerItem), 'Must pass a non-nil planner item for editing');
+  EditState := esEdit;
+  InternalEditModal(PlannerItem);
+end;
+
+procedure TBasePlannerItemEditForm.EditStateChanged;
+begin
+  //placeholder for descendants
+end;
+
+procedure TBasePlannerItemEditForm.FixEnabledComponents;
+begin
+  //placeholder for descendants
+end;
+
+procedure TBasePlannerItemEditForm.InternalEditModal(
+  PlannerItem: TPlannerItem);
+begin
+  AssignFromPlannerItem(PlannerItem);
+  FixEnabledComponents;
+  ProcessWarnings;
+  if (ShowModal = mrOK) then
+  begin
+    CheckInputValues(PlannerItem);
+    AssignToPlannerItem(PlannerItem);
+    PlannerItem.Update;
+  end;
+end;
+
+procedure TBasePlannerItemEditForm.ProcessWarnings;
+begin
+  //placeholder for descendants
+end;
+
+procedure TBasePlannerItemEditForm.SetEditState(const Value: TEditState);
+begin
+  if Value <> EditState then
+  begin
+    FEditState := Value;
+    EditStateChanged;
+  end;
+end;
+
+
+{ TPAFPlannerItemEditForm }
+
+procedure TDefaultPlannerItemEditForm.AssignFromPlannerItem(
+  PlannerItem: TPlannerItem);
+begin
+  inherited;
+end;
+
+procedure TDefaultPlannerItemEditForm.AssignToPlannerItem(
+  PlannerItem: TPlannerItem);
+begin
+  inherited;
+  PlannerItem.Update;
+end;
+
+procedure TDefaultPlannerItemEditForm.EditStateChanged;
+begin
+  inherited;
+  if EditState = esNew then
+  begin
+    Caption := 'New appointment';
+  end
+  else
+  begin
+    Caption := 'Edit appointment';
+  end;
+end;
+
+
+procedure TDefaultPlannerItemEditForm.FixEnabledComponents;
+begin
+  inherited;
+end;
+
+procedure TDefaultPlannerItemEditForm.FormCreate(Sender: TObject);
+begin
+
+end;
+
+
+
+procedure TDefaultPlannerItemEditForm.ProcessWarnings;
+begin
+  inherited;
+
+end;
+
+
+{ TDefaultItemEditor }
+
+constructor TPafItemEditor.Create(AOwner: TComponent);
+begin
+  inherited;
+
+end;
+
+procedure TPafItemEditor.CreateEditor(AOwner: TComponent);
+begin
+  inherited;
+  CenteronScreen:=True;
+  FEditForm := TDefaultPlannerItemEditForm.Create(AOwner);
+  FEditForm.Top := FFormTop;
+  FEditForm.Left := FFormLeft;
+  //FEditForm.SubjectEdit.Text:='Hej  create';
+  FEditForm.MemoAnamnes.Lines.Clear;
+  if CenterOnScreen then
+    FEditForm.Position := poScreenCenter;
+  FEditForm.Caption := Caption;
+end;
+
+destructor TPafItemEditor.Destroy;
+begin
+  //FRecurrencyDialog.Free;
+  inherited;
+end;
+
+procedure TPafItemEditor.DestroyEditor;
+begin
+  ModalResult := FEditForm.ModalResult;
+  inherited;
+  FEditForm.Free;
+end;
+
+procedure TPafItemEditor.EditToPlannerItem(APlannerItem: TPlannerItem);
+begin
+  FEditForm.AssignToPlannerItem(APlannerItem);
+  inherited;
+end;
+
+function TPafItemEditor.Execute: Integer;
+begin
+  Result := FEditForm.ShowModal;
+end;
+
+procedure TPafItemEditor.PlannerItemToEdit(APlannerItem: TPlannerItem);
+begin
+  inherited;
+  Caption:= TMyPafItem(APlannerItem).Prodkod+' '+TMyPafItem(APlannerItem).Prodtext;
+  with FEditForm do
+  begin
+    EditPnr.Text  := TMyPafItem(APlannerItem).pid;
+    EditNamn.Text := TMyPafItem(APlannerItem).PatNamn;
+    EditFraga.Text := TMyPafItem(APlannerItem).FrageText;
+    MemoAnamnes.Lines.Add(TMyPafItem(APlannerItem).Anamnes);
+    EditKommentar.text:=TMyPafItem(APlannerItem).BesKomm;
+  end;
+end;
+
+
+end.
