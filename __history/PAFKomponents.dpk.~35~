@@ -5,7 +5,7 @@ package PAFKomponents;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -30,19 +30,12 @@ package PAFKomponents;
 requires
   rtl,
   vcl,
-  adortl,
-  dbrtl,
-  vclx,
-  xmlrtl,
-  vclactnband,
   vclimg,
-  vcldb,
-  VclSmp,
-  tmsexdxe2,
-  tmsdxe2;
+  tmsdXE7,
+  tmsexdXE7;
 
 contains
   PAFPlanner in 'PAFPlanner.pas',
-  PAFEdit3 in 'PAFEdit3.pas';
+  PAFEdit3 in 'PAFEdit3.pas' {DefaultPlannerItemEditForm};
 
 end.

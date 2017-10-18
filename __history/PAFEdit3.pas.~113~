@@ -7,7 +7,7 @@
 
 
 {$I TMSDEFS.INC}
-
+{$define edit_debug}
 unit PAFEdit3;
 
 interface
@@ -16,7 +16,7 @@ uses
   PafPlanner,
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, Planner, StdCtrls, ExtCtrls, ComCtrls, Buttons, CommCtrl,
-  PlanRecurrEdit, PlanUtil;
+  PlanRecurrEdit, PlanUtil, AdvSmoothPanel;
 
 type
   TEditState = (esEdit, esNew);
@@ -27,6 +27,7 @@ type
     FEditState: TEditState;
   protected
     procedure AssignFromPlannerItem(PlannerItem: TPlannerItem); virtual;
+   // procedure AssignFromPlannerItem(PlannerItem: TPlannerItem); virtual;
     procedure AssignToPlannerItem(PlannerItem: TPlannerItem); virtual;
     procedure CheckInputValues(PlannerItem: TPlannerItem); virtual;
     procedure EditStateChanged; virtual;
@@ -49,12 +50,13 @@ type
     EditPnr: TEdit;
     EditFraga: TEdit;
     MemoAnamnes: TMemo;
-
-    procedure FixEnabledComponents; override;
-    procedure FormCreate(Sender: TObject);
+    Panel1: TAdvSmoothPanel;
+    Label1: TLabel;
+    LabelRemissNr: TLabel;
+    procedure MemoAnamnesChange(Sender: TObject);
 
   private
-    FImageList: TImageList;
+    //FImageList: TImageList;
   protected
   protected
 
@@ -211,17 +213,12 @@ begin
 end;
 
 
-procedure TDefaultPlannerItemEditForm.FixEnabledComponents;
+procedure TDefaultPlannerItemEditForm.MemoAnamnesChange(Sender: TObject);
 begin
-  inherited;
+  if MemoAnamnes.Lines.Count > 8 then
+    MemoAnamnes.ScrollBars:=ssVertical
+  else MemoAnamnes.ScrollBars:=ssNone;
 end;
-
-procedure TDefaultPlannerItemEditForm.FormCreate(Sender: TObject);
-begin
-
-end;
-
-
 
 procedure TDefaultPlannerItemEditForm.ProcessWarnings;
 begin
@@ -280,13 +277,26 @@ procedure TPafItemEditor.PlannerItemToEdit(APlannerItem: TPlannerItem);
 begin
   inherited;
   Caption:= TMyPafItem(APlannerItem).Prodkod+' '+TMyPafItem(APlannerItem).Prodtext;
+
   with FEditForm do
   begin
+    Panel1.Caption.Text:=TMyPafItem(APlannerItem).Prodkod;
     EditPnr.Text  := TMyPafItem(APlannerItem).pid;
+    EditPnr.Enabled:=False;
     EditNamn.Text := TMyPafItem(APlannerItem).PatNamn;
+    EditNamn.Enabled:=False;
     EditFraga.Text := TMyPafItem(APlannerItem).FrageText;
+    EditFraga.Enabled:=False;
     MemoAnamnes.Lines.Add(TMyPafItem(APlannerItem).Anamnes);
+    MemoAnamnes.Enabled:=True;
+    LabelRemissNr.Caption:=TMyPafItem(APlannerItem).Rid;
+
+    {$ifdef edit_debug}
+    EditKommentar.text := 'Alnr: '+IntToStr(TMyPafItem(APlannerItem).ALNr)+
+                          '.  StatusFlg: ' + IntToStr(TMyPafItem(APlannerItem).StatusFlg) ;
+    {$else}
     EditKommentar.text:=TMyPafItem(APlannerItem).BesKomm;
+    {$endif}
   end;
 end;
 

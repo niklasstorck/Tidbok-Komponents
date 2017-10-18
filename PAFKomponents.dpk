@@ -31,8 +31,8 @@ requires
   rtl,
   vcl,
   vclimg,
-  tmsdXE7,
-  tmsexdXE7;
+  tmsdXE10,
+  tmsexdXE10;
 
 contains
   PAFPlanner in 'PAFPlanner.pas',

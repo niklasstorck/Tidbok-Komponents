@@ -7,7 +7,7 @@
 
 
 {$I TMSDEFS.INC}
-{$define edit_debug}
+{ $define edit_debug}
 unit PAFEdit3;
 
 interface
